@@ -27,7 +27,7 @@ def saque(valor):
     if valor > 0:
        global saldo
        global count
-       if valor <= saldo and count < 3:
+       if valor <= saldo and count < 3 and valor <= LIMITE_DIARI0:
            saldo -= valor
            count += 1
            msg.append(f'{dt_operacao.strftime("%d/%m/%Y %H:%M")}: Saque de R$ {valor}.')
@@ -35,8 +35,11 @@ def saque(valor):
        else:
            if saldo < valor:
               return f'Saldo insuficiente. Tente novamente. {QTD_SAQUE_DIARIO - count} saques restantes.'
-           else:
+           elif count >= QTD_SAQUE_DIARIO:
                return f'Limite de saques por dia atingido. Tente novamente. {QTD_SAQUE_DIARIO - count} saque(s) restante(s).'
+           else:
+               return f'{valor} é superior ao limite de saque de R$ {LIMITE_DIARI0}. Tente novamente. {QTD_SAQUE_DIARIO - count} saque(s) restante(s).'
+           
     else:
         return False
 
